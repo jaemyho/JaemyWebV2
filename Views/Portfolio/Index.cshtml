@@ -1,0 +1,164 @@
+@model IEnumerable<PortfolioItem>
+@{
+    ViewData["Title"] = "Portfolio";
+}
+
+@section Scripts {
+    <link rel="stylesheet" href="~/css/portfolio.css" asp-append-version="true" />
+    <script src="~/js/portfolio.js" asp-append-version="true"></script>
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <!-- Header Section -->
+            <div class="text-center mb-5 fade-in">
+                <h1 class="display-4 mb-3"><span class="text-gradient">My Portfolio</span></h1>
+                <p class="lead">A showcase of my recent projects and work</p>
+                
+                <!-- Filter Buttons -->
+                <div id="portfolio-filter" class="mt-4 mb-5">
+                    <button class="btn btn-outline-primary me-2 active" data-filter="all">
+                        <i class="fas fa-th me-2"></i>All Projects
+                    </button>
+                    <button class="btn btn-outline-primary me-2" data-filter="web">
+                        <i class="fas fa-globe me-2"></i>Web Applications
+                    </button>
+                    <button class="btn btn-outline-primary me-2" data-filter="financial">
+                        <i class="fas fa-chart-line me-2"></i>Financial Systems
+                    </button>
+                    <button class="btn btn-outline-primary me-2" data-filter="trading">
+                        <i class="fas fa-exchange-alt me-2"></i>Trading Systems
+                    </button>
+                    <button class="btn btn-outline-primary" data-filter="security">
+                        <i class="fas fa-shield-alt me-2"></i>Security Solutions
+                    </button>
+                </div>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="row">
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        string category = "web";
+                        if (item.Title.Contains("Stock") || item.Title.Contains("Trading") || item.Title.Contains("Foreign"))
+                            category = "trading";
+                        else if (item.Title.Contains("Financial") || item.Title.Contains("Back Office"))
+                            category = "financial";
+                        else if (item.Title.Contains("Patrol") || item.Title.Contains("Security"))
+                            category = "security";
+                        
+                        <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="@category">
+                            <div class="portfolio-card card h-100">
+                                <div class="portfolio-image-container">
+                                    <img src="@(item.ImageUrl ?? "https://via.placeholder.com/400x250?text=Project+Image")" 
+                                         class="card-img-top" 
+                                         alt="@item.Title">
+                                    <div class="portfolio-overlay">
+                                        <div class="portfolio-overlay-content">
+                                            <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@item.Id" 
+                                               class="btn btn-light btn-sm me-2">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            @if (!string.IsNullOrEmpty(item.ProjectUrl))
+                                            {
+                                                <a href="@item.ProjectUrl" target="_blank" class="btn btn-primary btn-sm me-2">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                            }
+                                            @if (!string.IsNullOrEmpty(item.GitHubUrl))
+                                            {
+                                                <a href="@item.GitHubUrl" target="_blank" class="btn btn-dark btn-sm">
+                                                    <i class="fab fa-github"></i>
+                                                </a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Title</h5>
+                                    <p class="card-text">@item.Description</p>
+                                    @if (!string.IsNullOrEmpty(item.Technologies))
+                                    {
+                                        <div class="project-technologies">
+                                            @foreach (var tech in item.Technologies.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                            {
+                                                <span class="skill-badge">@tech.Trim()</span>
+                                            }
+                                        </div>
+                                    }
+                                    <div class="card-text">
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar me-1"></i>@item.CreatedAt.ToString("MMM yyyy")
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-transparent border-0">
+                                    <a asp-controller="Portfolio" asp-action="Details" asp-route-id="@item.Id" 
+                                       class="btn btn-primary w-100">
+                                        <i class="fas fa-info-circle me-2"></i>View Details
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 text-center py-5">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="fas fa-briefcase fa-3x text-muted mb-3"></i>
+                                <h3 class="text-muted">No Projects Found</h3>
+                                <p class="text-muted">Projects will be displayed here once they are added.</p>
+                                <a asp-controller="Contact" asp-action="Index" class="btn btn-primary">
+                                    <i class="fas fa-envelope me-2"></i>Contact Me to Learn More
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-5 fade-in">
+                <div class="card bg-gradient-primary text-white">
+                    <div class="card-body py-5">
+                        <h3 class="mb-3">Interested in Working Together?</h3>
+                        <p class="lead mb-4">
+                            I'm always excited to take on new challenges and collaborate on innovative projects.
+                        </p>
+                        <a asp-controller="Contact" asp-action="Index" class="btn btn-light btn-lg">
+                            <i class="fas fa-envelope me-2"></i>Let's Discuss Your Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Portfolio Details Modal (for quick preview) -->
+<div class="modal fade" id="portfolioModal" tabindex="-1" aria-labelledby="portfolioModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="portfolioModalLabelTitle">Project Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBodyContent">
+                <!-- Content will be loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="modalViewDetails">
+                    <i class="fas fa-external-link-alt me-1"></i>View Full Details
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,50 @@
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.error-content {
+    padding: 2rem 0;
+}
+
+.error-icon {
+    animation: bounce 2s infinite;
+}
+
+.error-actions .btn {
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-weight: 500;
+}
+
+.card .row > div {
+    text-align: center;
+}
+
+.card .row > div i {
+    font-size: 2rem;
+}
+
+.card .row > div span {
+    color: #333;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .error-actions .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+}

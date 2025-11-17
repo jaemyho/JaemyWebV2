@@ -1,0 +1,545 @@
+@{
+    ViewData["Title"] = "Resume";
+}
+
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="page-container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5 fade-in pb-5">
+                <h1 class="display-4 mb-3"><span class="text-gradient">Resume</span></h1>
+                <p class="lead">Professional Experience & Skills</p>
+                <div class="mt-4 mb-4 py-3" style="height:50px;">
+                    <a href="#" class="btn btn-primary btn-lg me-3" onclick="downloadResume()">                        <i class="fas fa-download me-2"></i>Download PDF
+                    </a>
+                    <a href="mailto:contact@jaemyho.com" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Contact Me
+                    </a>
+                </div>
+            </div>
+
+            <!-- Personal Information -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center personal-info-row">
+                            <div class="col-lg-4 col-md-4 personal-info-image">
+                                <img src="~/images/formalphoto.JPG" alt="Jaemy Ho" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-lg-8 col-md-8 personal-info-details">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex">
+                                            <strong class="me-2">Name:</strong>
+                                            <span>Jaemy Ho Seng Han</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex">
+                                            <strong class="me-2">Birthday:</strong>
+                                            <span>19th May 1994</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex">
+                                            <strong class="me-2">Nationality:</strong>
+                                            <span>Malaysian</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex">
+                                            <strong class="me-2">Address:</strong>
+                                            <span>Ranui, Auckland, New Zealand</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex">
+                                            <strong class="me-2">Email Addr:</strong>
+                                            <a href="mailto:jaemy.ho@gmail.com" class="text-primary">jaemy.ho@gmail.com</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="d-flex align-items-center">
+                                        <strong class="me-3">Social Medias:</strong>
+                                        <div class="d-flex gap-3">
+                                            <a href="#" class="text-primary" title="Facebook">
+                                                <i class="fab fa-facebook-f fa-2x"></i>
+                                            </a>
+                                            <a href="#" class="text-danger" title="Instagram">
+                                                <i class="fab fa-instagram fa-2x"></i>
+                                            </a>
+                                            <a href="#" class="text-primary" title="LinkedIn">
+                                                <i class="fab fa-linkedin-in fa-2x"></i>
+                                            </a>
+                                            <a href="#" class="text-info" title="Skype">
+                                                <i class="fab fa-skype fa-2x"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Professional Summary -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-user-circle me-2 text-gradient"></i>Professional Summary
+                        </h2>
+                        <p class="card-text lead">
+                            Experienced Full-Stack Developer with 5+ years of expertise in developing scalable web applications 
+                            using Microsoft technologies. Passionate about clean code, agile methodologies, and continuous learning. 
+                            Strong background in ASP.NET MVC, Entity Framework, and modern frontend technologies.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-cogs me-2 text-gradient"></i>Technical Skills
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5>Programming Languages</h5>
+                                <p>C#, JavaScript, TypeScript, SQL, HTML5, CSS3</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Frameworks & Libraries</h5>
+                                <p>ASP.NET MVC, ASP.NET Core, Entity Framework Core, Bootstrap, jQuery, React</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Databases</h5>
+                                <p>SQL Server, MySQL, PostgreSQL, Redis</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Tools & Technologies</h5>
+                                <p>Visual Studio, Visual Studio Code, Git, Azure, Docker, CI/CD, Serilog</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Experience -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-briefcase me-2 text-gradient"></i>Work Experience
+                        </h2>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item mb-4">
+                                <div class="timeline-marker bg-primary"></div>
+                                <div class="timeline-content">
+                                    <h4 class="mb-2">Senior Software Developer</h4>
+                                    <h5 class="text-muted mb-2">IT Man Solution</h5>
+                                    <p class="text-muted mb-2">Kuala Lumpur, Malaysia | July 2020 - November 2022</p>
+                                    <ul class="mb-0">
+                                        <li>Developed web and Windows applications using PHP and C# ASP.NET</li>
+                                        <li>Conducted thorough software testing to resolve bugs and troubleshoot issues before deployment</li>
+                                        <li>Mentored junior developers to enhance coding standards and best practices</li>
+                                        <li>Enhanced software systems by improving performance and adding new features</li>
+                                        <li>Oversaw system installations, testing, and code corrections</li>
+                                        <li>Achieved the highest bug closure rate in the company</li>
+                                        <li>Successfully led the conversion of a Singapore-based financing bank's back-office Windows application to a web-based platform, improving accessibility and efficiency</li>
+                                        <li>Suggested and implemented a task and bug tracking system to monitor project progress, enhancing workflow transparency and efficiency</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item mb-4">
+                                <div class="timeline-marker bg-success"></div>
+                                <div class="timeline-content">
+                                    <h4 class="mb-2">Analyst Programmer</h4>
+                                    <h5 class="text-muted mb-2">TimeTec Computing Sdn Bhd</h5>
+                                    <p class="text-muted mb-2">Kuala Lumpur, Malaysia | November 2019 - May 2020</p>
+                                    <ul class="mb-0">
+                                        <li>Web development with C# ASP.NET</li>
+                                        <li>Conducted R&D on Google Map API integration into ASP.NET with geofence</li>
+                                        <li>Successfully enhanced the Patrol System by integrating Google Maps API, improving geolocation accuracy and functionality</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-marker bg-info"></div>
+                                <div class="timeline-content">
+                                    <h4 class="mb-2">Software Developer</h4>
+                                    <h5 class="text-muted mb-2">Excel Force MSC Berhad</h5>
+                                    <p class="text-muted mb-2">Selangor, Malaysia | August 2017 - March 2019</p>
+                                    <ul class="mb-0">
+                                        <li>C++ Software Developer focused on CyberBroker Front Office systems</li>
+                                        <li>Worked on BTX (Bridging Trader & Exchange), CyberStock Ecos, and WebEcos systems</li>
+                                        <li>Key responsibilities included Stock Feed Display, Stock Order Management, Foreign Stock Trading, and system/web revamps</li>
+                                        <li>Developed new enhancements and modifications based on customer specification documents to meet client requirements</li>
+                                        <li>Successfully identified and resolved a long-standing client-reported token bug within two weeks of joining the company</li>
+                                        <li>Demonstrated flexibility by transitioning from C++ development to C# ASP.NET to assist other team members and meet project needs effectively</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-graduation-cap me-2 text-gradient"></i>Education
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="education-item">
+                                    <h4 class="mb-2">Master of Software Engineering</h4>
+                                    <p class="text-muted mb-1"><strong>Yoobee College</strong></p>
+                                    <p class="text-muted mb-0">July 2024 - July 2025</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <div class="education-item">
+                                    <h4 class="mb-2">BSc (Hons) Computer Games Development</h4>
+                                    <p class="text-muted mb-1"><strong>Asia Pacific University</strong></p>
+                                    <p class="text-muted mb-0">May 2012 - August 2016</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <h5>Key Achievements:</h5>
+                            <ul class="mb-0">
+                                <li>Specialized in software engineering methodologies and advanced programming techniques</li>
+                                <li>Comprehensive understanding of game development frameworks and technologies</li>
+                                <li>Strong foundation in computer science principles and software architecture</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications -->
+            <!--section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-certificate me-2 text-gradient"></i>Certifications & Training
+                        </h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5></h5>
+                                <p class="text-muted mb-0"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section-->
+
+            <!-- Awards & Achievements -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-trophy me-2 text-gradient"></i>Awards & Achievements
+                        </h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">Certificate of Successfully Completion</h5>
+                                <p class="text-muted mb-3">ISO 27001 ISMS Awareness Training Program</p>
+                                <small class="text-primary fw-bold">2019</small>
+                            </div>
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">Certificate of Participation</h5>
+                                <p class="text-muted mb-3">Java Programming Workshop at Asia Pacific University</p>
+                                <small class="text-primary fw-bold">2015</small>
+                            </div>
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">Certificate of Appreciation</h5>
+                                <p class="text-muted mb-3">Technical Assistant Attachment Programme in Asia Pacific University</p>
+                                <small class="text-primary fw-bold">2014</small>
+                            </div>
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">Certificate of Training</h5>
+                                <p class="text-muted mb-3">Technical Assistant Trainee in Asia Pacific University</p>
+                                <small class="text-primary fw-bold">2013</small>
+                            </div>
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">General Certificate of Education Ordinary Level</h5>
+                                <p class="text-muted mb-3">English Language (1119) - B+</p>
+                                <small class="text-primary fw-bold">2011</small>
+                            </div>
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">Certificate of Vocational Subject</h5>
+                                <p class="text-muted mb-3">Computer Programming subjects: Fundamentals of Programming, Programming and Development Tools</p>
+                                <small class="text-primary fw-bold">2011</small>
+                            </div>
+                            <div class="achievement-item p-4 border rounded h-100 shadow-sm">
+                                <h5 class="mb-3 text-primary">Certificate of Appreciation</h5>
+                                <p class="text-muted mb-3">ICT Fair Program</p>
+                                <small class="text-primary fw-bold">2010</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Highlight -->
+            <section class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">
+                            <i class="fas fa-code me-2 text-gradient"></i>Projects That Involved
+                        </h2>
+                        <div class="row g-3">
+                            <div class="col-lg-6 col-md-6 mb-4">
+                                <div class="project-item p-3 border rounded h-100">
+                                    <h5 class="mb-2 text-primary">Own Website (www.jaemyho.com)</h5>
+                                    <p class="text-muted small mb-2"><strong>Technologies:</strong> ASP.NET, Expense Tracking System</p>
+                                    <ul class="mb-2 small">
+                                        <li>Personal website built with ASP.NET to showcase resume</li>
+                                        <li>Integrated expense tracking system with data entry and graphical features</li>
+                                        <li>Future plans: Admin panel for profile updates and OCR receipt scanning</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-4">
+                                <div class="project-item p-3 border rounded h-100">
+                                    <h5 class="mb-2 text-primary">Financial Back Office System</h5>
+                                    <p class="text-muted small mb-2"><strong>Technologies:</strong> ASP.NET, Windows Migration</p>
+                                    <ul class="mb-2 small">
+                                        <li>Automated and optimized back-office operations</li>
+                                        <li>Maintains system integrity for trade processing and settlement</li>
+                                        <li>Migrated traditional Windows back-office to web-based ASP.NET platform</li>
+                                        <li>Improved accessibility, efficiency, and user experience</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-4">
+                                <div class="project-item p-3 border rounded h-100">
+                                    <h5 class="mb-2 text-primary">TimeTac Patrol</h5>
+                                    <p class="text-muted small mb-2"><strong>Technologies:</strong> NFC, BLE, Cloud Computing, Google Maps API</p>
+                                    <ul class="mb-2 small">
+                                        <li>Security management solution leveraging NFC, BLE, and cloud computing</li>
+                                        <li>Streamlined patrol operations and enhanced real-time reporting</li>
+                                        <li>R&D integration of Google Maps API into Patrol Web System</li>
+                                        <li>Developed APIs for mobile application communication</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-4">
+                                <div class="project-item p-3 border rounded h-100">
+                                    <h5 class="mb-2 text-primary">Multi Foreign Share Trading</h5>
+                                    <p class="text-muted small mb-2"><strong>Technologies:</strong> Legacy System Enhancement, Stock Market APIs</p>
+                                    <ul class="mb-2 small">
+                                        <li>Enhanced legacy system to enable foreign stock trading</li>
+                                        <li>Integrated stock market feeds from USA, Hong Kong, and Singapore</li>
+                                        <li>Extended CyberStock Bridging Trader & Exchange System using APIs</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-4">
+                                <div class="project-item p-3 border rounded h-100">
+                                    <h5 class="mb-2 text-primary">CyberStock Electronic Ordering System</h5>
+                                    <p class="text-muted small mb-2"><strong>Technologies:</strong> C#, ASP.NET MVC, C++ Migration</p>
+                                    <ul class="mb-2 small">
+                                        <li>Stock trading website developed with C# for end clients</li>
+                                        <li>Services: announcements, account management, feed analysis, stock trading</li>
+                                        <li>Transitioned system from C++ to C# ASP.NET</li>
+                                        <li>Utilized ASP.NET MVC to enhance features and debug legacy issues</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 mb-4">
+                                <div class="project-item p-3 border rounded h-100">
+                                    <h5 class="mb-2 text-primary">CyberStock Bridging Trader & Exchange System</h5>
+                                    <p class="text-muted small mb-2"><strong>Technologies:</strong> C++, GDI+, OCX, Bursa Malaysia</p>
+                                    <ul class="mb-2 small">
+                                        <li>Stock trading platform for remisiers and dealers</li>
+                                        <li>Services: client management, feed analysis, stock trading</li>
+                                        <li>Connected to Bursa Malaysia for stock feeds and order management</li>
+                                        <li>Frontend: GDI+, Backend: C++, compiled as OCX for client deployment</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section class="slide-up">
+                <div class="card bg-light">
+                    <div class="card-body text-center">
+                        <h3 class="mb-4">Get In Touch</h3>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <i class="fas fa-envelope fa-2x text-gradient mb-2"></i>
+                                <p class="mb-0">jaemy.ho@gmail.com</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <i class="fas fa-phone fa-2x text-gradient mb-2"></i>
+                                <p class="mb-0">+64 2885257319</p>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <i class="fas fa-map-marker-alt fa-2x text-gradient mb-2"></i>
+                                <p class="mb-0">Auckland, New Zealand</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="#" class="btn btn-primary me-3">
+                                <i class="fab fa-linkedin me-1"></i>LinkedIn
+                            </a>
+                            <a href="#" class="btn btn-dark me-3">
+                                <i class="fab fa-github me-1"></i>GitHub
+                            </a>
+                            <a href="#" class="btn btn-info">
+                                <i class="fab fa-twitter me-1"></i>Twitter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Page Container Styles */
+.page-container {
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    display: block;
+}
+
+/* Ensure proper centering */
+.container-fluid {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+}
+
+/* Responsive Container Widths */
+@@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+@@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -1rem;
+    top: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #e9ecef;
+}
+
+/* Personal Information Layout */
+.personal-info-row {
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+}
+
+.personal-info-image {
+    flex: 0 0 33.333333% !important;
+    max-width: 33.333333% !important;
+    padding-right: 2rem !important;
+    text-align: center;
+}
+
+.personal-info-image img {
+    border-radius: 50% !important;
+    width: 200px !important;
+    height: 200px !important;
+    object-fit: cover !important;
+    border: 3px solid #e9ecef !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+
+}
+
+.personal-info-details {
+    flex: 0 0 66.666667% !important;
+    max-width: 66.666667% !important;
+    padding-left: 1rem !important;
+}
+
+@@media (max-width: 991px) {
+    .personal-info-row {
+        flex-direction: column !important;
+    }
+    
+    .personal-info-image {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    .personal-info-details {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+</style>
+
+<script>
+function downloadResume() {
+    // In a real application, this would download the actual PDF
+    alert('Download functionality would be implemented here. Please contact me to receive a copy of my resume.');
+}
+</script>

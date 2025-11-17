@@ -1,0 +1,238 @@
+@model PortfolioItem
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@section Scripts {
+    <link rel="stylesheet" href="~/css/portfolio.css" asp-append-version="true" />
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Project Header -->
+            <div class="text-center mb-5 fade-in">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="breadcrumb-item"><a asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                    </ol>
+                </nav>
+                
+                <h1 class="display-4 mb-3"><span class="text-gradient">@Model.Title</span></h1>
+                <div class="project-meta mb-4">
+                    <span class="badge bg-primary me-2">
+                        <i class="fas fa-calendar me-1"></i>@Model.CreatedAt.ToString("MMMM yyyy")
+                    </span>
+                    @if (!string.IsNullOrEmpty(Model.Technologies))
+                    {
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-code me-1"></i>@Model.Technologies.Split(',').Length.ToString() Technologies
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <!-- Project Image -->
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="mb-5 slide-up">
+                    <div class="project-image-wrapper">
+                        <img src="@Model.ImageUrl" class="img-fluid rounded shadow-lg" alt="@Model.Title" />
+                    </div>
+                </div>
+            }
+
+            <!-- Project Description -->
+            <div class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-info-circle me-2 text-gradient"></i>Project Overview
+                        </h3>
+                        <div class="project-description">
+                            @Html.Raw(Model.Description.Replace("\n", "<br />"))
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technologies Used -->
+            @if (!string.IsNullOrEmpty(Model.Technologies))
+            {
+                <div class="mb-5 slide-up">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">
+                                <i class="fas fa-code me-2 text-gradient"></i>Technologies Used
+                            </h3>
+                            <div class="technologies-list">
+                                @foreach (var technology in Model.Technologies.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    <span class="skill-badge me-2 mb-2">@technology.Trim()</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <!-- Project Details -->
+            <div class="row mb-5 slide-up">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-calendar-alt fa-2x text-gradient mb-3"></i>
+                            <h5>Project Timeline</h5>
+                            <p class="text-muted">Started: @Model.CreatedAt.ToString("MMMM yyyy")</p>
+                            <p class="text-muted">Duration: @(DateTime.Now.Year - Model.CreatedAt.Year + 1) month(s)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <i class="fas fa-tasks fa-2x text-gradient mb-3"></i>
+                            <h5>Project Category</h5>
+                            <p class="text-muted">Web Application</p>
+                            <p class="text-muted">Full-Stack Development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <i class="fas fa-star me-2 text-gradient"></i>Key Features
+                        </h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Responsive Design</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Modern UI/UX</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Performance Optimized</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-unstyled">
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Cross-Browser Compatible</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Mobile Friendly</li>
+                                    <li class="mb-2"><i class="fas fa-check text-success me-2"></i>SEO Optimized</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mb-5 slide-up">
+                <div class="card bg-light">
+                    <div class="card-body py-4">
+                        <h4 class="mb-3">Interested in This Project?</h4>
+                        <p class="mb-4">I'm always excited to discuss my projects and share insights about the development process.</p>
+                        <a asp-controller="Contact" asp-action="Index" class="btn btn-primary me-3">
+                            <i class="fas fa-envelope me-2"></i>Contact Me
+                        </a>
+                        <a asp-controller="Portfolio" asp-action="Index" class="btn btn-outline-primary">
+                            <i class="fas fa-briefcase me-2"></i>View More Projects
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Projects -->
+            @if (!string.IsNullOrEmpty(Model.Technologies))
+            {
+                <div class="slide-up">
+                    <h3 class="mb-4">
+                        <i class="fas fa-folder-open me-2 text-gradient"></i>Other Projects
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="https://via.placeholder.com/300x200?text=Related+Project+1" class="card-img-top" alt="Related Project">
+                                <div class="card-body">
+                                    <h5 class="card-title">E-commerce Platform</h5>
+                                    <p class="card-text">Similar technology stack project.</p>
+                                    <a href="#" class="btn btn-sm btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="https://via.placeholder.com/300x200?text=Related+Project+2" class="card-img-top" alt="Related Project">
+                                <div class="card-body">
+                                    <h5 class="card-title">Task Management App</h5>
+                                    <p class="card-text">Another showcase of development skills.</p>
+                                    <a href="#" class="btn btn-sm btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <img src="https://via.placeholder.com/300x200?text=Related+Project+3" class="card-img-top" alt="Related Project">
+                                <div class="card-body">
+                                    <h5 class="card-title">CRM System</h5>
+                                    <p class="card-text">Enterprise-level application.</p>
+                                    <a href="#" class="btn btn-sm btn-primary">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1000;">
+        <div class="btn-group" role="group">
+            <a asp-controller="Portfolio" asp-action="Index" class="btn btn-light" title="Back to Portfolio">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            @if (!string.IsNullOrEmpty(Model.ProjectUrl))
+            {
+                <a href="@Model.ProjectUrl" target="_blank" class="btn btn-primary" title="View Live Demo">
+                    <i class="fas fa-external-link-alt"></i>
+                </a>
+            }
+            @if (!string.IsNullOrEmpty(Model.GitHubUrl))
+            {
+                <a href="@Model.GitHubUrl" target="_blank" class="btn btn-dark" title="View Source Code">
+                    <i class="fab fa-github"></i>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+.project-image-wrapper img {
+    transition: transform 0.3s ease;
+}
+
+.project-image-wrapper:hover img {
+    transform: scale(1.02);
+}
+
+.project-description {
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.technologies-list {
+    margin-top: 1rem;
+}
+
+.project-meta .badge {
+    font-size: 0.9em;
+    padding: 8px 12px;
+}
+
+<!-- Media queries moved to external CSS -->
+</style>

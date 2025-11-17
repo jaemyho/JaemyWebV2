@@ -1,0 +1,104 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  MYSQL_SERVICE_VERSION: '8.0'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    env:
+      ConnectionStrings__DefaultConnection: "Server=localhost;Database=JaemyWeb;User=testuser;Password=testpassword;"
+    
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: JaemyWeb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpassword
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Install EF Core Tools
+      run: dotnet tool install --global dotnet-ef
+
+    - name: Apply database migrations
+      run: dotnet ef database update
+
+    - name: Run tests
+      run: dotnet test --configuration Release --verbosity normal
+      continue-on-error: true
+
+    - name: Publish application
+      run: dotnet publish --configuration Release --output ./publish
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: published-app
+        path: ./publish
+
+  security-scan:
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Run .NET Security Scan
+      run: |
+        echo "Scanning for vulnerable packages..."
+        if dotnet list package --vulnerable --include-transitive > security-scan.log 2>&1; then
+          echo "✅ No security vulnerabilities found"
+          cat security-scan.log
+        else
+          echo "❌ Security vulnerabilities found!"
+          cat security-scan.log
+          exit 1
+        fi
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [build-and-test, security-scan]
+    if: always()
+    
+    steps:
+    - name: Notify build status
+      run: |
+        if [ "${{ needs.build-and-test.result }}" == "success" ] && [ "${{ needs.security-scan.result }}" == "success" ]; then
+          echo "✅ Build and tests successful!"
+        else
+          echo "❌ Build or tests failed!"
+        fi
+

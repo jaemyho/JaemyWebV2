@@ -1,0 +1,404 @@
+@model BlogPost
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@section Scripts {
+    <link rel="stylesheet" href="~/css/blog.css" asp-append-version="true" />
+}
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-4 fade-in">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
+                </ol>
+            </nav>
+
+            <!-- Article Header -->
+            <div class="text-center mb-5 fade-in">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" class="img-fluid rounded shadow-lg mb-4" alt="@Model.Title" style="max-height: 400px; object-fit: cover;" />
+                }
+                
+                <h1 class="display-4 mb-3"><span class="text-gradient">@Model.Title</span></h1>
+                
+                <div class="article-meta mb-4">
+                    <span class="badge bg-primary me-2">
+                        <i class="fas fa-calendar me-1"></i>@Model.CreatedAt.ToString("MMMM dd, yyyy")
+                    </span>
+                    @if (!string.IsNullOrEmpty(Model.Author))
+                    {
+                        <span class="badge bg-secondary me-2">
+                            <i class="fas fa-user me-1"></i>@Model.Author
+                        </span>
+                    }
+                    <span class="badge bg-success">
+                        <i class="fas fa-clock me-1"></i>
+                        @Math.Max(3, (int)(Model.Content.Length / 200)) min read
+                    </span>
+                </div>
+
+                @if (!string.IsNullOrEmpty(Model.Description))
+                {
+                    <p class="lead text-muted">@Model.Description</p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Tags))
+                {
+                    <div class="article-tags mb-4">
+                        @foreach (var tag in Model.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries))
+                        {
+                            <span class="badge bg-light text-dark me-1 mb-1">
+                                <i class="fas fa-tag me-1"></i>@tag.Trim()
+                            </span>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Article Content -->
+            <article class="blog-content mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body p-5">
+                        <div class="content-text">
+                            @Html.Raw(Model.Content.Replace("\n", "<br /><br />"))
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Author Bio -->
+            <div class="mb-5 slide-up">
+                <div class="card bg-light">
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-auto">
+                                <img src="https://via.placeholder.com/80x80?text=JH" class="rounded-circle" alt="Author" />
+                            </div>
+                            <div class="col">
+                                <h5 class="mb-1">
+                                    @(string.IsNullOrEmpty(Model.Author) ? "Jaemy Ho" : Model.Author)
+                                </h5>
+                                <p class="text-muted mb-2">
+                                    Full-Stack Developer & Software Engineer
+                                </p>
+                                <p class="mb-0 small">
+                                    Passionate about writing clean code and sharing knowledge with the developer community. 
+                                    Specializes in ASP.NET MVC, modern web technologies, and software architecture.
+                                </p>
+                            </div>
+                            <div class="col-auto">
+                                <div class="social-links">
+                                    <a href="#" class="social-link" title="LinkedIn">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="#" class="social-link" title="Twitter">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="#" class="social-link" title="GitHub">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Sharing -->
+            <div class="text-center mb-5 slide-up">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3">Share this post</h5>
+                        <div class="social-sharing">
+                            <a href="#" class="btn btn-outline-primary me-2" onclick="shareOnLinkedIn()">
+                                <i class="fab fa-linkedin me-1"></i>LinkedIn
+                            </a>
+                            <a href="#" class="btn btn-outline-info me-2" onclick="shareOnTwitter()">
+                                <i class="fab fa-twitter me-1"></i>Twitter
+                            </a>
+                            <a href="#" class="btn btn-outline-dark me-2" onclick="shareOnFacebook()">
+                                <i class="fab fa-facebook me-1"></i>Facebook
+                            </a>
+                            <button class="btn btn-outline-secondary" onclick="copyLink()">
+                                <i class="fas fa-copy me-1"></i>Copy Link
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Posts -->
+            <div class="mb-5 slide-up">
+                <h3 class="mb-4">
+                    <i class="fas fa-newspaper me-2 text-gradient"></i>Related Posts
+                </h3>
+                <div class="row">
+                    <div class="col-md-2 mb-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/300x200?text=Related+Post+1" class="card-img-top" alt="Related Post">
+                            <div class="card-body">
+                                <h6 class="card-title">Getting Started with ASP.NET Core</h6>
+                                <p class="card-text small">Learn the fundamentals of modern web development...</p>
+                                <a href="#" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/300x200?text=Related+Post+2" class="card-img-top" alt="Related Post">
+                            <div class="card-body">
+                                <h6 class="card-title">Entity Framework Best Practices</h6>
+                                <p class="card-text Small">Best practices for database interactions...</p>
+                                <a href="#" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-4">
+                        <div class="card">
+                            <img src="https://via.placeholder.com/300x200?text=Related+Post+3" class="card-img-top" alt="Related Post">
+                            <div class="card-body">
+                                <h6 class="card-title">Bootstrap 5 Components</h6>
+                                <p class="card-text small">Modern UI components and styling...</p>
+                                <a href="#" class="btn btn-sm btn-primary">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section (Placeholder) -->
+            <div class="slide-up">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h4 class="mb-3">
+                            <i class="fas fa-comments me-2 text-gradient"></i>Comments
+                        </h4>
+                        <div class="comments-section">
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Comments section will be available in future updates. 
+                                For now, feel free to reach out via the contact page!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="text-center mt-5 slide-up">
+                <div class="row">
+                    <div class="col-md-6 mb-3 text-md-start">
+                        <a asp-controller="Blog" asp-action="Index" class="btn btn-outline-primary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Blog
+                        </a>
+                    </div>
+                    <div class="col-md-6 mb-3 text-md-end">
+                        <a asp-controller="Contact" asp-action="Index" class="btn btn-primary">
+                            <i class="fas fa-envelope me-2"></i>Contact Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="sticky-top" style="top: 100px;">
+                <!-- Table of Contents -->
+                <div class="card mb-4 slide-up">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-list me-2 text-gradient"></i>Table of Contents
+                        </h5>
+                        <div class="toc-list">
+                            <a href="#introduction" class="toc-link">Introduction</a>
+                            <a href="#main-content" class="toc-link">Main Content</a>
+                            <a href="#conclusion" class="toc-link">Conclusion</a>
+                            <a href="#final-thoughts" class="toc-link">Final Thoughts</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Posts -->
+                <div class="card mb-4 slide-up">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <i class="fas fa-history me-2 text-gradient"></i>Recent Posts
+                        </h5>
+                        <div class="recent-posts">
+                            <div class="recent-post mb-3">
+                                <h6><a href="#" class="text-decoration-none">Getting Started with ASP.NET Core</a></h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Dec 15, 2023
+                                </small>
+                            </div>
+                            <div class="recent-post mb-3">
+                                <h6><a href="#" class="text-decoration-none">Entity Framework Best Practices</a></h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Dec 10, 2023
+                                </small>
+                            </div>
+                            <div class="recent-post mb-3">
+                                <h6><a href="#" class="text-decoration-none">Modern Web Development</a></h6>
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>Dec 5, 2023
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Newsletter Signup -->
+                <div class="card bg-gradient-primary text-white slide-up">
+                    <div class="card-body text-center p-4">
+                        <h5 class="mb-3">Stay Updated</h5>
+                        <p class="small mb-3">Get notified about new blog posts and updates.</p>
+                        <div class="input-group mb-3">
+                            <input type="email" class="form-control form-control-sm" placeholder="your@email.com">
+                            <button class="btn btn-light btn-sm" type="button">Subscribe</button>
+                        </div>
+                        <p class="small mb-0">No spam, unsubscribe anytime.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.article-meta .badge {
+    font-size: 0.9em;
+    padding: 8px 12px;
+}
+
+.content-text {
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+
+.content-text h2, .content-text h3, .content-text h4 {
+    color: #333;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.content-text p {
+    margin-bottom: 1.5rem;
+}
+
+.article-tags .badge {
+    font-size: 0.8em;
+    padding: 6px 10px;
+    margin: 2px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    background: #f8f9fa;
+    border-radius: 50%;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+}
+
+.toc-link {
+    display: block;
+    padding: 8px 0;
+    color: #667eea;
+    text-decoration: none;
+    border-bottom: 1px solid #f8f9fa;
+    transition: color 0.3s ease;
+}
+
+.toc-link:hover {
+    color: #764ba2;
+    text-decoration: none;
+}
+
+.recent-post h6 a {
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.recent-post h6 a:hover {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+}
+
+<!-- Media queries moved to external CSS -->
+</style>
+
+<script>
+function shareOnLinkedIn() {
+    var url = window.location.href;
+    var title = '@Model.Title';
+    window.open('https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url), '_blank');
+}
+
+function shareOnTwitter() {
+    var url = window.location.href;
+    var text = '@Model.Title';
+    window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(url) + '&text=' + encodeURIComponent(text), '_blank');
+}
+
+function shareOnFacebook() {
+    var url = window.location.href;
+    window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url), '_blank');
+}
+
+function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(function() {
+        showAlert('Link copied to clipboard!', 'success');
+    });
+}
+
+$(document).ready(function() {
+    // Newsletter subscription
+    $('.card-body .btn-light').click(function() {
+        var email = $(this).closest('.input-group').find('input').val();
+        
+        if (email) {
+            showAlert('Thank you for subscribing!', 'success');
+            $(this).closest('.input-group').find('input').val('');
+        } else {
+            showAlert('Please enter a valid email address.', 'warning');
+        }
+    });
+    
+    // Smooth scrolling for TOC links
+    $('.toc-link').click(function(e) {
+        e.preventDefault();
+        var target = $(this).attr('href');
+        if (target) {
+            $('html, body').animate({
+                scrollTop: $(target).offset().top - 100
+            }, 1000);
+        }
+    });
+});
+</script>
